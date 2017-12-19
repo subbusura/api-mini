@@ -1,0 +1,27 @@
+{
+    "name": "new/micro",
+    "require": {
+        "php": ">=5.4.0",
+        "yiisoft/yii2": "2.0.13.1"
+    },
+    "authors": [
+        {
+            "name": "Subramani Krishnan",
+            "email": "subramani6202@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "scripts": {
+        "test": [
+            "ls"
+        ],
+        "custom":[
+            "ls"
+        ]
+    }
+}
