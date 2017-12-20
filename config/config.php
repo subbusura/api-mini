@@ -1,5 +1,5 @@
 <?php
-return [
+$config= [
     'id' => 'api-app',
     // the basePath of the application will be the `micro-app` directory
     'basePath' => dirname(__DIR__),
@@ -10,7 +10,8 @@ return [
     	 	'request' => [
     				'parsers' => [
     						'application/json' => 'yii\web\JsonParser',
-    				]
+    				],
+                   // 'cookieValidationKey' => '',
     		],
     		'response' => [
             'class' => 'yii\web\Response',
@@ -102,3 +103,5 @@ return [
     'params' =>require(__DIR__ . '/params.php'),
     'timeZone'=>'Asia/Kolkata'
 ];
+
+return $config;
