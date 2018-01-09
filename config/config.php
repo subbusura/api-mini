@@ -72,6 +72,12 @@ $config= [
             },
 
         ],
+         'user' => [
+        		'identityClass' => 'api\models\User',
+        		'enableAutoLogin' => false,
+        		'enableSession' =>false,
+        		'loginUrl'=>null
+        ],
         'log' => [
 
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -88,6 +94,14 @@ $config= [
 
             ],
 
+        ],
+        'urlManager' => [
+        		'enablePrettyUrl' => true,
+        		'enableStrictParsing' => false,
+        		'showScriptName' => false,
+        		'rules' => [
+        				//['class' => 'yii\rest\UrlRule', 'controller' => 'site/index'],
+        	  ],
         ],
     	'errorHandler' => [
 
