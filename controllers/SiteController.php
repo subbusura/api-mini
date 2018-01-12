@@ -3,7 +3,7 @@
 namespace api\controllers;
 
 use yii;
-use yii\web\Controller;
+use yii\rest\Controller;
 
 class SiteController extends Controller
 {
