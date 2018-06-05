@@ -6,72 +6,18 @@ $config= [
     // this is where the application will find all controllers
     'controllerNamespace' => 'api\controllers',
     'bootstrap' => ['log'],
+    'modules' => [
+        'v1' => [   
+                'class' => 'api\modules\v1\Module',
+            ]
+],
     'components'=>[
     	 	'request' => [
     				'parsers' => [
     						'application/json' => 'yii\web\JsonParser',
     				],
-                   // 'cookieValidationKey' => '',
+                   'cookieValidationKey' => 'heloow',
     		],
-    		'response' => [
-            'class' => 'yii\web\Response',
-            'format' => yii\web\Response::FORMAT_JSON,
-            'formatters' => [
-      				'application/json' => yii\web\Response::FORMAT_JSON,
-      				'application/xml' => yii\web\Response::FORMAT_XML,
-      		],
-      		'charset' => 'UTF-8',
-            'on beforeSend' => function ($event) {
-
-                $response = $event->sender;
-
-                if ($response->data !== null) {
-
-                    if($response->isSuccessful)
-
-                    {
-
-                        $response->data = [
-
-                                'success' => $response->isSuccessful,
-
-                                'data' => $response->data,
-
-                                'statusCode'=>$response->statusCode,
-
-                                'error'=>null
-
-                        ];
- 
-
-                    }else{
-
-                    
-                        $response->data = [
-
-                                'success' => $response->isSuccessful,
-
-                                'data' =>null,
-
-                                'statusCode'=>$response->statusCode,
-
-                                'error'=> $response->data,
-
-                        ];
-
-                            
-
-                        
-
-                    }
-
-                    $response->statusCode = 200;
-
-                }
-
-            },
-
-        ],
          'user' => [
         		'identityClass' => 'api\models\User',
         		'enableAutoLogin' => false,
@@ -79,21 +25,13 @@ $config= [
         		'loginUrl'=>null
         ],
         'log' => [
-
             'traceLevel' => YII_DEBUG ? 3 : 0,
-
             'targets' => [
-
                 [
-
                     'class' => 'yii\log\FileTarget',
-
                     'levels' => ['error', 'warning'],
-
-                ],
-
+                ]
             ],
-
         ],
         'urlManager' => [
         		'enablePrettyUrl' => true,
@@ -101,21 +39,40 @@ $config= [
         		'showScriptName' => false,
         		'rules' => [
         				//['class' => 'yii\rest\UrlRule', 'controller' => 'site/index'],
+                    'debug/<controller>/<action>' => 'debug/<controller>/<action>',
         	  ],
         ],
     	'errorHandler' => [
-
     			'errorAction' => 'site/error',
-
     	],
     	 'db' => require(__DIR__ . '/db.php'),
     ],
     // set an alias to enable autoloading of classes from the 'micro' namespace
     'aliases' => [
         '@api' =>dirname(__DIR__),
+        '@bower' => '@vendor/bower-asset',
+        '@npm'   => '@vendor/npm-asset',
     ],
     'params' =>require(__DIR__ . '/params.php'),
     'timeZone'=>'Asia/Kolkata'
 ];
+
+
+if (YII_ENV_DEV) {
+    // configuration adjustments for 'dev' environment
+    $config['bootstrap'][] = 'debug';
+    $config['modules']['debug'] = [
+        'class' => 'yii\debug\Module',
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        //'allowedIPs' => ['127.0.0.1', '::1'],
+    ];
+
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
+        // uncomment the following to add your IP if you are not connecting from localhost.
+        //'allowedIPs' => ['127.0.0.1', '::1'],
+    ];
+}
 
 return $config;
